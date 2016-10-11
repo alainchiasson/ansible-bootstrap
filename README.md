@@ -5,4 +5,4 @@ Installs ansible on your system, and continues the installation of all required 
 
 run the following from the command line:
 
-```curl https://raw.githubusercontent.com/alainchiasson/ansible-bootstrap/master/README.md | bash```
+```curl -s  https://raw.githubusercontent.com/alainchiasson/ansible-bootstrap/master/install.sh | bash -s ```
