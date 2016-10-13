@@ -1,9 +1,29 @@
-#!/bin/bash
+#!/usr/bin/env bash
+#
+# Sets up requirements to provision with ansible
+#
 
-echo "Installing pip"
+#
+# Clean display function
+#
+# usage:
+#        display "My thing to output"
+#
+function display() {
+    echo "----> $1"
+}
 
-sudo easy_install pip
+if [ ! `which pip` ]
+then
+    display "Installing pip"
+    sudo easy_install pip
+fi
 
-echo "Installing ansible via pip"
+# Install Ansible
+sudo pip install --upgrade ansible
 
-sudo pip install ansible --quiet
+# if [ ! `which brew` ]
+# then
+#     display "Installing Homebrew"
+#     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+# fi

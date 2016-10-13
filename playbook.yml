@@ -1,0 +1,26 @@
+---
+- hosts: all
+  tasks:
+    - name: Install cask apps
+      homebrew_cask: name={{item}} state=present
+      with_items :
+      - google-chrome
+      - skype
+      - iterm2
+      - slack
+      - atom
+      - virtualbox
+      - vagrant
+    # - name: Remove packages
+    #   homebrew_cask: name={{item}} state=absent
+    #   with_items:
+    #   - docker-toolbox
+    #   - docker
+    - name: Insteal homebrew apps
+      homebrew: name={{item}} state=present
+      with_items:
+      - packer
+      - docker
+      - docker-machine
+      - docker-machine-driver-xhyve
+      - git-flow-avh
