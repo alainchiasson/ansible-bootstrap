@@ -27,3 +27,5 @@ sudo pip install --upgrade ansible
 #     display "Installing Homebrew"
 #     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 # fi
+
+ansible-playbook -i "localhost," -c local playbook.yml
