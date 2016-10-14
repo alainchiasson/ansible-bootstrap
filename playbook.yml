@@ -24,3 +24,5 @@
       - docker-machine
       - docker-machine-driver-xhyve
       - git-flow-avh
+    - name: Install git alias
+      shell: git config --global alias.tree 'log --oneline --decorate --graph'
