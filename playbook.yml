@@ -26,5 +26,8 @@
       - git-flow-avh
       - kubernetes-cli
       - nmap
+      - terraform
+      - terraform-inventory
+      - terraform-provisioner-ansible
     - name: Install git alias
       shell: git config --global alias.tree 'log --oneline --decorate --graph'
