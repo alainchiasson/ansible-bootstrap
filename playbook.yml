@@ -29,6 +29,7 @@
       - terraform
       - terraform-inventory
       - terraform-provisioner-ansible
+      - mysql
     - name: install openstack client from pip
       pip: name=python-openstackclient state=present
     - name: add command line alias for openstack os
