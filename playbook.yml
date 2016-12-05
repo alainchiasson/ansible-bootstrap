@@ -29,5 +29,5 @@
       - terraform
       - terraform-inventory
       - terraform-provisioner-ansible
-    - name: Install git alias
-      shell: git config --global alias.tree 'log --oneline --decorate --graph'
+    - name: Install git alias for tree
+      git_config: name=alias.tree scope=global value='log --oneline --decorate --graph'
