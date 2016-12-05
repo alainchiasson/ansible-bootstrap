@@ -29,5 +29,15 @@
       - terraform
       - terraform-inventory
       - terraform-provisioner-ansible
+    - name: install openstack client from pip
+      pip: name=python-openstackclient state=present
+    - name: add command line alias for openstack os
+      lineinfile:
+        dest=~/.bashrc
+        line="alias os='openstack'"
+        regexp="^alias os='openstack'"
+        state=present
+        insertafter=EOF
+        create=True
     - name: Install git alias for tree
       git_config: name=alias.tree scope=global value='log --oneline --decorate --graph'
