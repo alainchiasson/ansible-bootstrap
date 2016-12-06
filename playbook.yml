@@ -41,4 +41,6 @@
         insertafter=EOF
         create=True
     - name: Install git alias for tree
-      git_config: name=alias.tree scope=global value='log --oneline --decorate --graph'
+      git_config: name=alias.tree scope=global value='log --oneline --decorate --graph --all'
+    - name: Install git alias for short tree
+      git_config: name=alias.stree scope=global value='log --oneline --decorate --graph'
