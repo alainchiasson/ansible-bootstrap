@@ -11,6 +11,8 @@
       - atom
       - virtualbox
       - vagrant
+      - minikube
+      # - apache-spark
     # - name: Remove packages
     #   homebrew_cask: name={{item}} state=absent
     #   with_items:
