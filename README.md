@@ -12,10 +12,23 @@ Try see if we can invert this - stuff ansible in a container, with the proper sc
 
 # How to use
 
-The new expeted use will be :
+Currently this is limited to a linux type host running an ssh
+daemon. In this case this is the vagrant box. to use:
 
-- Install docker
-- docker run ansible-worstation-deployer
+```
+vagrant up
+vagrant ssh -c 'sudo docker run -ti --rm \
+    -v /root/.ssh:/root/.ssh \
+    -v /vagrant:/ansible/playbooks \
+    philm/ansible_playbook -i inventory playbook.yml'
+```
+
+In this case the vagrant file does a little extra magic. It will
+install docker, create a key_pair, places it in athorized_keys
+and will also populate the inventory file.
+
+I still need to see if they would make sense in the case of a
+remote host, or is this example way too contrived.
 
 # Other items to think off
 
@@ -27,16 +40,25 @@ A testing loop using virtual box :
 
 Place this in an automatable look like test kitchen.
 
+- I cannot run this on an OSX host (to configure the OSX host)
+
+# More development
+
+In the description of the ```philm/ansible_playbook```, he talks
+about using an ```ansible_target``` container as the endpoint
+for running the ansible playbook against, mounting similar
+volumes for keys exchange. Overall this seems like a simple
+way of testing ansible roles without including the container
+information - much like test-kitchen.
+
+A future interaction, it may make sense to create deployer
+containers for all orchestaration tolls as well as test containers
+for  differing types of testing.
+
+Could I create an internal audit container ?
+Or would these just make sense for remote infrastructure ?
+
+I need to follow through on scenarios and alternate methods
+of deploying and testing.
+
 BONUS : make a single image to also install windows.
-
-# Depracated ---
-
-# How to use
-
-run the following from the command line:
-
-```curl -s  https://raw.githubusercontent.com/alainchiasson/ansible-bootstrap/master/install.sh | bash -s ```
-
-Changed to a playbook model - still need to work on it for a machine setup. Use the following command after ansible is installed. Still not sh
-
-```ansible-playbook -i "localhost," -c local playbook.yml```
