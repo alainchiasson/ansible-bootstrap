@@ -1,49 +1,14 @@
 ---
 - hosts: all
   tasks:
-    - name: Install cask apps
-      homebrew_cask: name={{item}} state=present
-      with_items :
-      - google-chrome
-      - skype
-      - iterm2
-      - slack
-      - atom
-      - virtualbox
-      - vagrant
-      - minikube
-      # - apache-spark
-    # - name: Remove packages
-    #   homebrew_cask: name={{item}} state=absent
-    #   with_items:
-    #   - docker-toolbox
-    #   - docker
-    - name: Insteal homebrew apps
-      homebrew: name={{item}} state=present
+    - name: echo something
+      debug:
+        msg: "All is ok "
+    - name: install mysql
+      yum:
+        pkg: { item }
       with_items:
-      - packer
-      - docker
-      - docker-machine
-      - docker-machine-driver-xhyve
-      - git-flow-avh
-      - kubernetes-cli
-      - nmap
-      - terraform
-      - terraform-inventory
-      - terraform-provisioner-ansible
       - mysql
-      - coreutils
-    # - name: install openstack client from pip
-    #   pip: name=python-openstackclient state=present
-    - name: add command line alias for openstack os
-      lineinfile:
-        dest=~/.bashrc
-        line="alias os='openstack'"
-        regexp="^alias os='openstack'"
-        state=present
-        insertafter=EOF
-        create=True
-    - name: Install git alias for tree
-      git_config: name=alias.tree scope=global value='log --oneline --decorate --graph --all'
-    - name: Install git alias for short tree
-      git_config: name=alias.stree scope=global value='log --oneline --decorate --graph'
+      - mariadb
+      - ruby
+      - python
