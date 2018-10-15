@@ -13,14 +13,15 @@ function display() {
     echo "----> $1"
 }
 
-if [ ! `which pip` ]
+if [ ! `command pip` ]
 then
     display "Installing pip"
-    sudo easy_install pip
+    easy_install pip
 fi
 
 # Install Ansible
-sudo pip install --upgrade ansible
+display "Installing Ansible"
+pip install --upgrade ansible
 
 # if [ ! `which brew` ]
 # then
