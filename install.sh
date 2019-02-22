@@ -1,32 +1,41 @@
-#!/usr/bin/env bash
-#
-# Sets up requirements to provision with ansible
-#
+#!/bin/bash
 
-#
-# Clean display function
-#
-# usage:
-#        display "My thing to output"
-#
-function display() {
-    echo "----> $1"
-}
+# Usage:
+# install.sh accout@apple.com password
 
-if [ ! `command pip` ]
-then
-    display "Installing pip"
-    easy_install pip
+if [[ -z $(which brew) ]]; then
+  echo "Installing Homebrew...";
+  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
 fi
 
-# Install Ansible
-display "Installing Ansible"
-pip install --upgrade ansible
+if [[ -z $(which ansible) ]]; then
+    echo "Installing Ansible";
+    brew install ansible
+fi
 
-# if [ ! `which brew` ]
-# then
-#     display "Installing Homebrew"
-#     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-# fi
+WHOAMI=$(whoami);
 
-ansible-playbook -i "localhost," -c local playbook.yml
+if [[ -d "/Users/${WHOAMI}/Documents/dotfiles" ]]; then
+    echo "Removing dotfiles";
+    rm -rf "/Users/${WHOAMI}/Documents/dotfiles" > /dev/null;
+fi
+if [[ -d "/Users/${WHOAMI}/.setup" ]]; then
+    echo "Removing playbook";
+    rm -rf "/Users/${WHOAMI}/.setup" > /dev/null;
+fi
+
+git clone https://github.com/LuckAlexander/mac-dev-playbook.git "/Users/${WHOAMI}/.setup" > /dev/null;
+git clone https://github.com/LuckAlexander/dotfiles.git "/Users/${WHOAMI}/Documents/dotfiles" > /dev/null;
+
+cd "/Users/${WHOAMI}/.setup/";
+
+echo "Installing requirements";
+ansible-galaxy install -r ./requirements.yml;
+
+echo "Initiating playbook";
+
+ansible-playbook ./main.yml -i inventory -U $(whoami) --ask-become-pass;
+#sudo ansible-playbook ./main.yml -i inventory;
+
+echo "Done.";
