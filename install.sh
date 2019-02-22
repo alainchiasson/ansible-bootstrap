@@ -2,6 +2,10 @@
 
 # Usage:
 # install.sh accout@apple.com password
+if ![[ command -v git ]]; then
+  echo "Install xcode tools (git)"
+  xcode-select --install
+fi
 
 if [[ -z $(which brew) ]]; then
   echo "Installing Homebrew...";
@@ -35,7 +39,7 @@ ansible-galaxy install -r ./requirements.yml;
 
 echo "Initiating playbook";
 
-ansible-playbook ./main.yml -i inventory -U $(whoami) --ask-become-pass;
+#ansible-playbook ./main.yml -i inventory -U $(whoami) --ask-become-pass;
 #sudo ansible-playbook ./main.yml -i inventory;
 
 echo "Done.";
