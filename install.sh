@@ -2,10 +2,9 @@
 
 # Usage:
 # install.sh accout@apple.com password
-if ![[ command -v git ]]; then
-  echo "Install xcode tools (git)"
-  xcode-select --install
-fi
+
+echo "Install xcode tools (git)"
+xcode-select --install || echo "Command line tools exited. Possible already installed."
 
 if [[ -z $(which brew) ]]; then
   echo "Installing Homebrew...";
